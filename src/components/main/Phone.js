@@ -26,7 +26,7 @@ function Phone(props) {
           Add
             </a>
       </div>
-      <a
+      <a className="link"
         onClick={onLinkClicked}
         href={"#!/phones/" + name}
         data-element="details-link"

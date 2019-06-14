@@ -11,7 +11,7 @@ class Catalog extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getAll();
   }
 
@@ -25,7 +25,7 @@ class Catalog extends React.Component {
   }
 
   renderPhones() {
-    // const { onPhoneClicked, onAddClicked } = this.props;
+    const { onPhoneClicked, onAddClicked } = this.props;
     return (this.state.phones.map((phone) => {
       return (
         <Phone
@@ -34,12 +34,12 @@ class Catalog extends React.Component {
           name={phone.name}
           image={phone.imageUrl}
           snippet={phone.snippet}
-          // onLinkClicked={() => {
-          //   onPhoneClicked(phone.id)
-          // }}
-          // onAddClick={() => {
-          //   onAddClicked(phone.name)
-          // }}
+          onLinkClicked={() => {
+            onPhoneClicked(phone.id)
+          }}
+          onAddClick={() => {
+            onAddClicked(phone.name)
+          }}
         />)
     }))
   }

@@ -3,6 +3,7 @@ import React from 'react';
 import Catalog from './main/Catalog';
 import Viewer from './main/Viewer';
 import Cart from './main/Cart';
+import Filter from './main/Filter';
 
 
 
@@ -83,6 +84,7 @@ class Main extends React.Component {
           // filter={this.state.filter}
           />
         }
+        <Filter />
       </main>
     );
   };

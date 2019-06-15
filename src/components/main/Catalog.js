@@ -6,27 +6,15 @@ import PhonesService from '../services';
 class Catalog extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      phones: [],
-    }
+    // this.state = {
+    //   phones: [],
+    // }
   }
 
-  componentWillMount() {
-    this.getAll();
-  }
-
-
-  getAll() {
-    PhonesService.getAll(this.props.filter).then(data => {
-      this.setState({
-        phones: data,
-      })
-    })
-  }
-
+  
   renderPhones() {
-    const { onPhoneClicked, onAddClicked } = this.props;
-    return (this.state.phones.map((phone) => {
+    const { onPhoneClicked, onAddClicked, phones,} = this.props;
+    return (phones.map((phone) => {
       return (
         <Phone
           id={phone.id}
@@ -46,7 +34,7 @@ class Catalog extends React.Component {
   
   render() {
     return (
-      <ul className="catalog">{this.renderPhones()}</ul>
+        <ul className="catalog">{this.renderPhones()}</ul>
     );
   }
 

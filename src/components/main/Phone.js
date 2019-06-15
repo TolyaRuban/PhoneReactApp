@@ -9,29 +9,35 @@ function Phone(props) {
       data-element="phone-element"
       data-phone-id={id}
     >
-      <a
-        onClick={onLinkClicked}
-        href={"#!/phones/" + name}
-        className="thumb"
-        data-element="details-link"
-      >
-        <img alt={name} src={image} />
-      </a>
-      <div className="phones__btn-buy-wrapper">
-        <a
-          className="btn btn-success"
-          data-element="add-to-cart"
-          onClick={onAddClick}
-        >
-          Add
+      <div className="phone-wrapper">
+        <div className="phone__item">
+          <a
+            onClick={onLinkClicked}
+            href={"#!/phones/" + name}
+            className="thumb"
+            data-element="details-link"
+          >
+            <img alt={name} src={image} />
+          </a>
+        </div>
+        <div className="phone__item">
+          <a className="link"
+            onClick={onLinkClicked}
+            href={"#!/phones/" + name}
+            data-element="details-link"
+          >{name}</a>
+          <p>{snippet}</p>
+        </div>
+        <div className="phone__item">
+          <a
+            className="btn btn-success"
+            data-element="add-to-cart"
+            onClick={onAddClick}
+          >
+            Add
             </a>
+        </div>
       </div>
-      <a className="link"
-        onClick={onLinkClicked}
-        href={"#!/phones/" + name}
-        data-element="details-link"
-      >{name}</a>
-      <p>{snippet}</p>
     </li>
   )
 }

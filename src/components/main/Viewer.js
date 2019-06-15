@@ -42,7 +42,7 @@ class Viewer extends React.Component {
         <li key={i}>
           <img
             src={img}
-            alt="image small"
+            alt="image-small"
             data-element="small-preview"
             key={"img" + this.state.phoneId}
             onClick={() => {

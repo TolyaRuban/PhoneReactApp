@@ -80,7 +80,6 @@ class Main extends React.Component {
             onPhoneClicked={this.handleClick}
             onAddClicked={this.addItem}
 
-          // onAddClicked={this.addItem}
           // filter={this.state.filter}
           />
         }

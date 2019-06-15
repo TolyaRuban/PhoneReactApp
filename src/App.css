@@ -87,6 +87,19 @@ main {
   border-radius: 4px;
 }
 
+.phone-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.phone__item:nth-child(2) {
+  flex-grow: 2;
+}
+
+.phone-wrapper a {
+  font-size: 16px;
+}
+
 .catalog li {
   clear: both;
   height: 100px;
@@ -95,7 +108,8 @@ main {
 
 a {
   cursor: pointer;
-  color: rgb(12, 49, 8);
+  font-weight: bold;
+  color: rgb(23, 141, 10);
   text-decoration: none;
 }
 

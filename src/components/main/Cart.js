@@ -5,7 +5,6 @@ const Cart = (props) => (
   <div className="cart">
     <h2>Shoping Cart</h2>
     <ul className="cart__ul">
-      {console.log(props.name)}
       {Object.entries(props.name).map(([item, index]) => (
         <li key={item + index}
           className="cart__item">

@@ -9,16 +9,16 @@ const PhonesService = {
     } catch (error) {
       result = [];
     }
-    // const filteredResult = result.filter((phone) => {
-    //   return phone.name.toLowerCase().includes(query.toLowerCase());
-    // });
-    // switch (order) {
-    //   case 'age':
-    //     filteredResult.sort((a, b) => a.age - b.age);
-    //     break;
-    //   case 'name':
-    //     filteredResult.sort((a, b) => a.name.localeCompare(b.name));
-    // }
+    const filteredResult = result.filter((phone) => {
+      return phone.name.toLowerCase().includes(query.toLowerCase());
+    });
+    switch (order) {
+      case 'age':
+        filteredResult.sort((a, b) => a.age - b.age);
+        break;
+      case 'name':
+        filteredResult.sort((a, b) => a.name.localeCompare(b.name));
+    }
     return result;
   },
   getById(id) {

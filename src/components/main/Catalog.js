@@ -1,7 +1,6 @@
 import React from "react";
 
 import Phone from './Phone';
-// import PhonesService from '../services';
 
 class Catalog extends React.Component {
   constructor(props) {

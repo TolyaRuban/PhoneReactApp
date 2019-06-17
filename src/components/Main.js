@@ -17,17 +17,13 @@ class Main extends React.Component {
       phoneAdded: {},
       filter: {
         query: "",
-        order: "name",
+        order: "age",
       },
       phones: [],
-      // f: [],
     };
-    this.getAll();
 
+    this.getAll();
   };
-  // componentWillMount() {
-  //   this.getAll();
-  // }
 
   getAll() {
     PhonesService.getAll(this.state.filter).then(data => {
@@ -35,8 +31,6 @@ class Main extends React.Component {
         phones: data
       })
     });
-
-    console.log(this.state.phones);
   };
 
   handleClick = id => {
@@ -81,10 +75,19 @@ class Main extends React.Component {
       this.setState(this.state)
     }
   };
-
-  queryChange = () => {
-
-    this.getAll();
+  
+  queryChange = async (event) => {
+    let timer = null;
+    await this.setState({
+      filter: {
+        ...this.state.filter,
+        query: event.target.value
+      }
+    });
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      this.getAll();
+    }, 1000)
   };
 
   orderChange = async (event) => {
@@ -101,11 +104,8 @@ class Main extends React.Component {
   render() {
     return (
       <main>
-        {/* {console.log(this.state.filter)} */}
         <div className="wrapper">
           <Filter
-            // search={this.filter}
-            // sort={this.sort}
             queryChange={this.queryChange}
             orderChange={this.orderChange}
           />
@@ -130,7 +130,6 @@ class Main extends React.Component {
       </main>
     );
   };
-
 }
 
 

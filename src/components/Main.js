@@ -108,6 +108,7 @@ class Main extends React.Component {
           <Filter
             queryChange={this.queryChange}
             orderChange={this.orderChange}
+            phoneSelected={this.state.phoneSelected}
           />
           <Cart
             name={this.state.phoneAdded}

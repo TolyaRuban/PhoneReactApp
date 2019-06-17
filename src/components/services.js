@@ -9,7 +9,7 @@ const PhonesService = {
     } catch (error) {
       result = [];
     }
-    /* const filteredResult = result.filter((phone) => {
+    const filteredResult = result.filter((phone) => {
       return phone.name.toLowerCase().includes(query.toLowerCase());
     });
     switch (order) {
@@ -18,8 +18,8 @@ const PhonesService = {
         break;
       case 'name':
         filteredResult.sort((a, b) => a.name.localeCompare(b.name));
-    } */
-    return result;
+    };
+    return filteredResult;
   },
   getById(id) {
     return window.fetch(API_URL + '/phones/' + id + '.json')

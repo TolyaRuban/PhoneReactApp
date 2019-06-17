@@ -16,79 +16,28 @@ class Main extends React.Component {
       phoneSelected: null,
       phoneAdded: {},
       filter: {
+        query: "",
         order: "name",
-        query: ""
       },
       phones: [],
-      f: [],
+      // f: [],
     };
 
-    this.filter = this.filter.bind(this);
-    this.sort = this.sort.bind(this);
   };
   componentWillMount() {
     this.getAll();
   }
+  
 
   getAll() {
-    PhonesService.getAll().then(data => {
+    PhonesService.getAll(this.state.filter).then(data => {
       this.setState({
-        phones: data,
-        f: data,
+        phones: data
       })
     });
 
     console.log(this.state.phones);
   };
-
-  filter(event) {
-    const phones = [...this.state.f],
-      filteredPhones = phones.filter((phone) => {
-        return phone.id.toLowerCase().includes(event.target.value.toLowerCase())
-      });
-
-    if (event.target.value === '') {
-      this.getAll();
-
-    } else {
-      this.setState({
-        phones: filteredPhones
-      })
-    }
-  }
-
-
-  sort(event) {
-    const order = event.target.value,
-      phones = [...this.state.phones];
-
-    let sortedPhonesByOrder;
-
-    function compareString(phoneA, phoneB) {
-      const phoneAname = phoneA.name.toLowerCase(),
-        phoneBname = phoneB.name.toLowerCase();
-      if (phoneAname < phoneBname) {
-        return -1;
-      }
-      if (phoneAname > phoneBname) {
-        return 1;
-      }
-      return 0;
-    }
-
-    function compareNumber(phoneA, phoneB) {
-      return phoneA.age - phoneB.age
-    }
-
-    if (order === 'name') {
-      sortedPhonesByOrder = phones.sort(compareString);
-    }
-    if (order === 'age') {
-      sortedPhonesByOrder = phones.sort(compareNumber);
-    }
-
-    this.setState({ phones: sortedPhonesByOrder })
-  }
 
   handleClick = id => {
     this.setState({
@@ -133,16 +82,31 @@ class Main extends React.Component {
     }
   };
 
+  queryChange = () => {
+
+    this.getAll();
+  };
+
+  orderChange = (event) => {
+    this.setState({
+      filter: {
+        ...this.state.filter,
+        order: event.target.value
+      }})
+    this.getAll();
+    console.log(this.state.filter);
+  }
+
   render() {
     return (
       <main>
         {/* {console.log(this.state.filter)} */}
         <div className="wrapper">
           <Filter
-            search={this.filter}
-            sort={this.sort}
-            // queryChange={this.queryChange}
-            // orderChange={this.orderChange}
+            // search={this.filter}
+            // sort={this.sort}
+            queryChange={this.queryChange}
+            orderChange={this.orderChange}
           />
           <Cart
             name={this.state.phoneAdded}

@@ -1,19 +1,15 @@
 import React from "react";
 
 import Phone from './Phone';
-import PhonesService from '../services';
+// import PhonesService from '../services';
 
 class Catalog extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   phones: [],
-    // }
   }
-
   
   renderPhones() {
-    const { onPhoneClicked, onAddClicked, phones,} = this.props;
+    const { onPhoneClicked, onAddClicked, phones} = this.props;
     return (phones.map((phone) => {
       return (
         <Phone
@@ -30,7 +26,7 @@ class Catalog extends React.Component {
           }}
         />)
     }))
-  }
+  };
   
   render() {
     return (

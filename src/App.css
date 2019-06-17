@@ -190,6 +190,7 @@ main {
 }
 
 .phoneViewer {
+  flex-basis: 70%;
   min-height: 400px;
   padding: 20px 5px;
 }

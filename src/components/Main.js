@@ -22,12 +22,12 @@ class Main extends React.Component {
       phones: [],
       // f: [],
     };
+    this.getAll();
 
   };
-  componentWillMount() {
-    this.getAll();
-  }
-  
+  // componentWillMount() {
+  //   this.getAll();
+  // }
 
   getAll() {
     PhonesService.getAll(this.state.filter).then(data => {
@@ -87,12 +87,13 @@ class Main extends React.Component {
     this.getAll();
   };
 
-  orderChange = (event) => {
-    this.setState({
+  orderChange = async (event) => {
+    await this.setState({
       filter: {
         ...this.state.filter,
         order: event.target.value
-      }})
+      }
+    });
     this.getAll();
     console.log(this.state.filter);
   }

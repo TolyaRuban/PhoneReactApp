@@ -2,12 +2,13 @@ import React from 'react';
 
 
 function Phone(props) {
-  const { id, name, image, snippet, onLinkClicked, onAddClick } = props;
+  const { id, name, image, snippet, onLinkClicked, onAddClick, key } = props;
   return (
     <li
       className="phone"
       data-element="phone-element"
       data-phone-id={id}
+      key={key}
     >
       <div className="phone-wrapper">
         <div className="phone__item">

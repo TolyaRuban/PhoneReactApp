@@ -20,12 +20,22 @@ class Main extends React.Component {
         order: "age",
       },
       phones: [],
+      filteredPhones: [],
     };
 
-    this.getAll();
   };
 
-  getAll() {
+  async componentWillMount() {
+    await this.getAllPhones();
+    await this.getFilteredPhones();
+  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const vitalPropsChange = this.props.bar !== nextProps.bar;
+  //   const vitalStateChange = this.state.foo !== nextState.foo;
+  //   return vitalPropsChange || vitalStateChange;
+  // }
+
+  getAllPhones() {
     PhonesService.getAll(this.state.filter).then(data => {
       this.setState({
         phones: data
@@ -33,19 +43,19 @@ class Main extends React.Component {
     });
   };
 
-  handleClick = id => {
+  handleClickSelected = id => {
     this.setState({
       phoneSelected: id
     });
   };
 
-  handleBackClick = () => {
+  handleClickBack = () => {
     this.setState({
       phoneSelected: ""
     });
   };
   
-  addItem = (phone) => {
+  handleClickAddToCart = (phone) => {
     let i = this.state.phoneAdded[phone];
     if (!this.state.phoneAdded.hasOwnProperty(phone)) {
       i = 0;
@@ -59,7 +69,7 @@ class Main extends React.Component {
     })
   };
 
-  removeItem = (phone) => {
+  handleClickRemoveFromCart = (phone) => {
     let i = this.state.phoneAdded[phone];
     --i;
     if (this.state.phoneAdded.hasOwnProperty(phone)) {
@@ -76,29 +86,45 @@ class Main extends React.Component {
     }
   };
   
-  queryChange = async (event) => {
-    let timer = null;
-    await this.setState({
+  queryChange = (event) => {
+    // let timer = null;
+    this.setState({
       filter: {
         ...this.state.filter,
         query: event.target.value
       }
-    });
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      this.getAll();
-    }, 1000)
+    }, this.getFilteredPhones(this.state.filter));
+    // clearTimeout(timer);
+    // timer = setTimeout(() => {
+    //   this.getAll();
+    // }, 1000)
   };
 
-  orderChange = async (event) => {
-    await this.setState({
+  orderChange = (event) => {
+    this.setState({
       filter: {
         ...this.state.filter,
         order: event.target.value
       }
+    }, this.getFilteredPhones(this.state.filter));
+  }
+
+  getFilteredPhones() {
+    const { query, order } = this.state.filter;
+    let filteredPhones = this.state.phones;
+    console.log(query, order);
+    filteredPhones = filteredPhones.filter((phone) => {
+      return phone.name.toLowerCase().includes(query.toLowerCase());
     });
-    this.getAll();
-    console.log(this.state.filter);
+    switch (order) {
+      case 'age':
+        filteredPhones.sort((a, b) => a.age - b.age);
+        break;
+      case 'name':
+        filteredPhones.sort((a, b) => a.name.localeCompare(b.name));
+    };
+    this.setState({ filteredPhones: filteredPhones })
+    // return 
   }
 
   render() {
@@ -112,20 +138,20 @@ class Main extends React.Component {
           />
           <Cart
             name={this.state.phoneAdded}
-            onDeletePhone={this.removeItem}
+            onDeletePhone={this.handleClickRemoveFromCart}
           />
         </div>
         {this.state.phoneSelected ? 
           (<Viewer 
             id={this.state.phoneSelected}
-            onBackClicked={this.handleBackClick}
-            onAddClicked={this.addItem}
+            onBackClicked={this.handleClickBack}
+            onAddClicked={this.handleClickAddToCart}
           />) : (
             <>
               <Catalog
-                onPhoneClicked={this.handleClick}
-                onAddClicked={this.addItem}
-                phones={this.state.phones}
+                onPhoneClicked={this.handleClickSelected}
+                onAddClicked={this.handleClickAddToCart}
+                phones={this.state.filteredPhones}
               /></>)
             }
       </main>

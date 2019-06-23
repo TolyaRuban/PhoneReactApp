@@ -7,8 +7,6 @@ class Catalog extends React.Component {
     super(props);
   }
 
-  
-  
   renderPhones() {
     const { onPhoneClicked, onAddClicked, phones} = this.props;
     return (phones.map((phone) => {

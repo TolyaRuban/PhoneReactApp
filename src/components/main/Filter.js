@@ -1,19 +1,13 @@
 import React from 'react';
 
 class Filter extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      disabled: ""
-    }
-  };
   render() {
     const { queryChange, orderChange, phoneSelected } = this.props;
+    let disabled;
       if (phoneSelected) {
-        this.state.disabled = "disabled";
+        disabled = "disabled";
       } else {
-        this.state.disabled = "";
+        disabled = "";
       };
     return (
       <div className="filter">
@@ -22,7 +16,7 @@ class Filter extends React.Component {
         <input
             data-element="query-field"
             onChange={queryChange}
-            disabled={this.state.disabled}
+            disabled={disabled}
             ></input>
         </p>
         <p>
@@ -30,7 +24,7 @@ class Filter extends React.Component {
         <select
             data-element="order-field"
             onChange={(event) => orderChange(event)}
-            disabled={this.state.disabled}
+            disabled={disabled}
             >
             <option value="age">Newest</option>
             <option value="name">Alphabetical</option>

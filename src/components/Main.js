@@ -36,12 +36,30 @@ class Main extends React.Component {
   // }
 
   getAllPhones() {
-    PhonesService.getAll(this.state.filter).then(data => {
+    PhonesService.getAll().then(data => {
       this.setState({
         phones: data
-      })
+      }, /* this.getFilteredPhones() */)
     });
   };
+
+  getFilteredPhones() {
+    const { query, order } = this.state.filter;
+    let filteredPhones = this.state.phones;
+    console.log(query, order);
+    filteredPhones = filteredPhones.filter((phone) => {
+      return phone.name.toLowerCase().includes(query.toLowerCase());
+    });
+    switch (order) {
+      case 'age':
+        filteredPhones.sort((a, b) => a.age - b.age);
+        break;
+      case 'name':
+        filteredPhones.sort((a, b) => a.name.localeCompare(b.name));
+    };
+    this.setState({ filteredPhones: filteredPhones })
+    // return 
+  }
 
   handleClickSelected = id => {
     this.setState({
@@ -107,24 +125,6 @@ class Main extends React.Component {
         order: event.target.value
       }
     }, this.getFilteredPhones(this.state.filter));
-  }
-
-  getFilteredPhones() {
-    const { query, order } = this.state.filter;
-    let filteredPhones = this.state.phones;
-    console.log(query, order);
-    filteredPhones = filteredPhones.filter((phone) => {
-      return phone.name.toLowerCase().includes(query.toLowerCase());
-    });
-    switch (order) {
-      case 'age':
-        filteredPhones.sort((a, b) => a.age - b.age);
-        break;
-      case 'name':
-        filteredPhones.sort((a, b) => a.name.localeCompare(b.name));
-    };
-    this.setState({ filteredPhones: filteredPhones })
-    // return 
   }
 
   render() {

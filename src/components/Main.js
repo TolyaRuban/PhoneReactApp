@@ -26,8 +26,13 @@ class Main extends React.Component {
   };
 
   async componentWillMount() {
-    await this.getAllPhones();
-    await this.getFilteredPhones();
+    const phones = await PhonesService.getAll();
+    // const filteredPhones = this.getFilteredPhones();
+    // await this.getFilteredPhones();
+    this.setState({
+      phones: phones,
+      // filteredPhones: filteredPhones
+    }, this.getFilteredPhones)
   }
   // shouldComponentUpdate(nextProps, nextState) {
   //   const vitalPropsChange = this.props.bar !== nextProps.bar;
@@ -35,13 +40,18 @@ class Main extends React.Component {
   //   return vitalPropsChange || vitalStateChange;
   // }
 
-  getAllPhones() {
+  // getAllPhones() {
+  //   const phones = PhonesService.getAll();
+  //   return phones;
+  // };
+
+  /* getAllPhones() {
     PhonesService.getAll().then(data => {
       this.setState({
         phones: data
-      }, /* this.getFilteredPhones() */)
+      })
     });
-  };
+  }; */
 
   getFilteredPhones() {
     const { query, order } = this.state.filter;
@@ -57,8 +67,8 @@ class Main extends React.Component {
       case 'name':
         filteredPhones.sort((a, b) => a.name.localeCompare(b.name));
     };
-    this.setState({ filteredPhones: filteredPhones })
-    // return 
+    this.setState({ filteredPhones: filteredPhones });
+    return filteredPhones;
   }
 
   handleClickSelected = id => {
@@ -111,7 +121,7 @@ class Main extends React.Component {
         ...this.state.filter,
         query: event.target.value
       }
-    }, this.getFilteredPhones(this.state.filter));
+    }, this.getFilteredPhones);
     // clearTimeout(timer);
     // timer = setTimeout(() => {
     //   this.getAll();
@@ -124,7 +134,7 @@ class Main extends React.Component {
         ...this.state.filter,
         order: event.target.value
       }
-    }, this.getFilteredPhones(this.state.filter));
+    }, this.getFilteredPhones);
   }
 
   render() {

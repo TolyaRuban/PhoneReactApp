@@ -3,17 +3,14 @@ import React from "react";
 import Phone from './Phone';
 
 class Catalog extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+  
   renderPhones() {
     const { onPhoneClicked, onAddClicked, phones} = this.props;
     return (phones.map((phone) => {
       return (
         <Phone
           id={phone.id}
-          key={"phone-" + phone.age}
+          key={"phone-" + phone.id}
           name={phone.name}
           image={phone.imageUrl}
           snippet={phone.snippet}

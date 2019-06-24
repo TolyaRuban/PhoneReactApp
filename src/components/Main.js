@@ -14,7 +14,7 @@ class Main extends React.Component {
 
     this.state = {
       phoneSelected: null,
-      phoneAdded: {},
+      phonesCart: {},
       filter: {
         query: "",
         order: "age",
@@ -27,36 +27,14 @@ class Main extends React.Component {
 
   async componentWillMount() {
     const phones = await PhonesService.getAll();
-    // const filteredPhones = this.getFilteredPhones();
-    // await this.getFilteredPhones();
     this.setState({
       phones: phones,
-      // filteredPhones: filteredPhones
     }, this.getFilteredPhones)
   }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const vitalPropsChange = this.props.bar !== nextProps.bar;
-  //   const vitalStateChange = this.state.foo !== nextState.foo;
-  //   return vitalPropsChange || vitalStateChange;
-  // }
-
-  // getAllPhones() {
-  //   const phones = PhonesService.getAll();
-  //   return phones;
-  // };
-
-  /* getAllPhones() {
-    PhonesService.getAll().then(data => {
-      this.setState({
-        phones: data
-      })
-    });
-  }; */
 
   getFilteredPhones() {
     const { query, order } = this.state.filter;
     let filteredPhones = this.state.phones;
-    console.log(query, order);
     filteredPhones = filteredPhones.filter((phone) => {
       return phone.name.toLowerCase().includes(query.toLowerCase());
     });
@@ -83,35 +61,29 @@ class Main extends React.Component {
     });
   };
   
-  handleClickAddToCart = (phone) => {
-    let i = this.state.phoneAdded[phone];
-    if (!this.state.phoneAdded.hasOwnProperty(phone)) {
-      i = 0;
-    }
-    ++i;
-    this.setState({
-      phoneAdded: {
-        ...this.state.phoneAdded,
-        [phone]: i
-      }
+  handleClickAddToCart = (phoneId) => {
+    this.setState(prevState => {
+      const quantity = prevState.phonesCart[phoneId] || 0;
+      const copy = { ...prevState.phonesCart };
+      copy[phoneId] = quantity + 1;
+
+      return { phonesCart: copy };
     })
   };
 
-  handleClickRemoveFromCart = (phone) => {
-    let i = this.state.phoneAdded[phone];
-    --i;
-    if (this.state.phoneAdded.hasOwnProperty(phone)) {
-      this.setState({
-        phoneAdded: {
-          ...this.state.phoneAdded,
-          [phone]: i
+  handleClickRemoveFromCart = (phoneId) => {
+      this.setState(prevState => {
+        const copy = { ...prevState.phonesCart };
+        const count = copy[phoneId] || 0;
+
+        if (count > 1) {
+          copy[phoneId] = count - 1;
+        } else {
+          delete copy[phoneId];
         }
-      })
-    }
-    if (i === 0) {
-      delete this.state.phoneAdded[phone];
-      this.setState(this.state)
-    }
+
+        return { phonesCart: copy };
+      });
   };
   
   queryChange = (event) => {
@@ -147,7 +119,7 @@ class Main extends React.Component {
             phoneSelected={this.state.phoneSelected}
           />
           <Cart
-            name={this.state.phoneAdded}
+            name={this.state.phonesCart}
             onDeletePhone={this.handleClickRemoveFromCart}
           />
         </div>
@@ -168,6 +140,5 @@ class Main extends React.Component {
     );
   };
 }
-
 
 export default Main;

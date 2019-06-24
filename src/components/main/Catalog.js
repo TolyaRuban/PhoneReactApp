@@ -21,7 +21,7 @@ class Catalog extends React.Component {
             onPhoneClicked(phone.id)
           }}
           onAddClick={() => {
-            onAddClicked(phone.name)
+            onAddClicked(phone.id)
           }}
         />)
     }))
@@ -32,8 +32,6 @@ class Catalog extends React.Component {
         <ul className="catalog">{this.renderPhones()}</ul>
     );
   }
-
 }
-
 
 export default Catalog;

@@ -27,9 +27,7 @@ class Main extends React.Component {
 
   async componentWillMount() {
     const phones = await PhonesService.getAll();
-    this.setState({
-      phones: phones,
-    }, this.getFilteredPhones)
+    this.setState({ phones }, this.getFilteredPhones);
   }
 
   getFilteredPhones() {
@@ -45,66 +43,63 @@ class Main extends React.Component {
       case 'name':
         filteredPhones.sort((a, b) => a.name.localeCompare(b.name));
     };
-    this.setState({ filteredPhones: filteredPhones });
+    this.setState({ filteredPhones });;
     return filteredPhones;
   }
 
-  handleClickSelected = id => {
-    this.setState({
-      phoneSelected: id
-    });
-  };
+  handleClickSelected = phoneSelected => this.setState({ phoneSelected });
 
-  handleClickBack = () => {
-    this.setState({
-      phoneSelected: ""
-    });
-  };
-  
+  handleClickBack = phoneSelected => this.setState({ phoneSelected: "" });
+
   handleClickAddToCart = (phoneId) => {
     this.setState(prevState => {
       const quantity = prevState.phonesCart[phoneId] || 0;
-      const copy = { ...prevState.phonesCart };
-      copy[phoneId] = quantity + 1;
-
-      return { phonesCart: copy };
+      return {
+        phonesCart: {
+          ...prevState.phonesCart,
+          [phoneId]: quantity + 1
+        }
+      };
     })
   };
 
   handleClickRemoveFromCart = (phoneId) => {
-      this.setState(prevState => {
-        const copy = { ...prevState.phonesCart };
-        const count = copy[phoneId] || 0;
+    this.setState(prevState => {
+      const quantity = prevState.phonesCart[phoneId] || 0;
 
-        if (count > 1) {
-          copy[phoneId] = count - 1;
-        } else {
-          delete copy[phoneId];
-        }
-
-        return { phonesCart: copy };
-      });
-  };
-  
-  queryChange = (event) => {
-    // let timer = null;
-    this.setState({
-      filter: {
-        ...this.state.filter,
-        query: event.target.value
+      if (quantity > 1) {
+        return {
+          phonesCart: {
+            ...prevState.phonesCart,
+            [phoneId]: quantity - 1
+          }
+        };
+      } else {
+        return delete prevState.phonesCart[phoneId];
       }
-    }, this.getFilteredPhones);
-    // clearTimeout(timer);
-    // timer = setTimeout(() => {
-    //   this.getAll();
-    // }, 1000)
+    });
+  };
+
+  queryChange = (event) => {
+    const value = event.target.value;
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          query: value
+        }
+      }
+    }, this.getFilteredPhones)
   };
 
   orderChange = (event) => {
-    this.setState({
-      filter: {
-        ...this.state.filter,
-        order: event.target.value
+    const value = event.target.value;
+    this.setState(prevState => {
+      return {
+        filter: {
+          ...prevState.filter,
+          order: value
+        }
       }
     }, this.getFilteredPhones);
   }
@@ -119,12 +114,12 @@ class Main extends React.Component {
             phoneSelected={this.state.phoneSelected}
           />
           <Cart
-            name={this.state.phonesCart}
+            phonesCart={this.state.phonesCart}
             onDeletePhone={this.handleClickRemoveFromCart}
           />
         </div>
-        {this.state.phoneSelected ? 
-          (<Viewer 
+        {this.state.phoneSelected ?
+          (<Viewer
             id={this.state.phoneSelected}
             onBackClicked={this.handleClickBack}
             onAddClicked={this.handleClickAddToCart}
@@ -135,7 +130,7 @@ class Main extends React.Component {
                 onAddClicked={this.handleClickAddToCart}
                 phones={this.state.filteredPhones}
               /></>)
-            }
+        }
       </main>
     );
   };

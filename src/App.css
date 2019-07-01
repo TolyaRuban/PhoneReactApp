@@ -56,26 +56,6 @@ footer>h1 {
   list-style: none;
 }
 
-.thumb {
-  float: left;
-  /* height: 100px; */
-  width: 100px;
-  margin-right: 5px;
-}
-
-.thumb>img {
-  display: block;
-  margin-right: 5px;
-  max-width: 100%;
-  height: auto;
-}
-
-.phones__btn-buy-wrapper {
-  align-items: center;
-  float: right;
-  height: 100%;
-  display: flex;
-}
 
 .phone {
   display: block;
@@ -90,14 +70,40 @@ footer>h1 {
 .phone-wrapper {
   display: flex;
   align-items: center;
-}
-
-.phone__item:nth-child(2) {
-  flex-grow: 2;
+  justify-content: space-between;
 }
 
 .phone-wrapper a {
   font-size: 16px;
+}
+
+.phone__item:nth-child(1) {
+  width: 105px;
+}
+
+.phone__item:nth-child(2) {
+  flex-grow: 1;
+}
+
+.thumb {
+  /* float: left; */
+  max-width: 100px;
+  margin-right: 5px;
+}
+
+.thumb>img {
+  /* display: block; */
+  object-fit: cover;
+  margin-right: 5px;
+  width: 100px;
+  height: auto;
+}
+
+.phones__btn-buy-wrapper {
+  align-items: center;
+  float: right;
+  height: 100%;
+  display: flex;
 }
 
 .catalog li {
@@ -126,7 +132,7 @@ p {
 .btn {
   color: #fff;
   background-color: rgb(23, 141, 10);
-  border-color: #E7EFFD;
+  /* border-color: #E7EFFD; */
   display: inline-block;
   padding: 6px 12px;
   margin-right: 10px;
@@ -141,6 +147,12 @@ p {
   cursor: pointer;
   border: 1px solid transparent;
   border-radius: 4px;
+  outline: none;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: rgb(33, 228, 11);
 }
 
 .cart__btn {
@@ -240,7 +252,6 @@ ul.phone-thumbs img {
 ul.phone-thumbs img:hover {
   cursor: pointer;
 }
-
 
 ul.specs {
   clear: both;

@@ -1,12 +1,11 @@
 import React from 'react';
 
 const Cart = (props) => (
-
   <div className="cart">
     <h2>Shoping Cart</h2>
     <ul className="cart__ul">
-      {Object.entries(props.name).map(([item, index]) => (
-        <li key={item + index}
+      {Object.entries(props.phonesCart).map(([item, index]) => (
+        <li key={item.id}
           className="cart__item">
           <button
             className="btn cart__btn"
@@ -20,8 +19,6 @@ const Cart = (props) => (
       ))}
     </ul>
   </div>
-
-  
 );
 
 export default Cart;

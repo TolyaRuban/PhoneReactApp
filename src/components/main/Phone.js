@@ -2,13 +2,12 @@ import React from 'react';
 
 
 function Phone(props) {
-  const { id, name, image, snippet, onLinkClicked, onAddClick, key } = props;
+  const { id, name, image, snippet, onLinkClicked, onAddClick } = props;
   return (
     <li
       className="phone"
       data-element="phone-element"
       data-phone-id={id}
-      key={key}
     >
       <div className="phone-wrapper">
         <div className="phone__item">
@@ -30,13 +29,13 @@ function Phone(props) {
           <p>{snippet}</p>
         </div>
         <div className="phone__item">
-          <a
-            className="btn btn-success"
+          <button
+            className="btn"
             data-element="add-to-cart"
             onClick={onAddClick}
           >
             Add
-            </a>
+            </button>
         </div>
       </div>
     </li>

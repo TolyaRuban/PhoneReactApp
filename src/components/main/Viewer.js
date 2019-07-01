@@ -14,15 +14,11 @@ class Viewer extends React.Component {
         name: "",
         description: ""
       },
-      mainImage: "",
+      mainImageUrl: "",
     }
 
   }
-  selectImage(imageUrl) {
-    this.setState({
-      mainImage: imageUrl,
-    });
-  }
+  selectImage(mainImageUrl) { this.setState({ mainImageUrl }) }
 
   componentDidMount() {
     const { id } = this.props;
@@ -30,7 +26,7 @@ class Viewer extends React.Component {
       PhonesService.getById(id).then(data => {
         this.setState({
           phone: data,
-          mainImage: data.images[0]
+          mainImageUrl: data.images[0]
         })
       })
     }
@@ -42,9 +38,9 @@ class Viewer extends React.Component {
         <li key={i}>
           <img
             src={img}
-            alt="image-small"
+            alt={this.state.phoneId}
             data-element="small-preview"
-            key={"img" + this.state.phoneId}
+            key={this.state.phoneId}
             onClick={() => {
               this.selectImage(img)
             }}>
@@ -61,8 +57,8 @@ class Viewer extends React.Component {
       <div className="phoneViewer">
         <img
           alt={name}
-          className="phoneDetail mainImage"
-          src={this.state.mainImage}
+          className="phoneDetail mainImageUrl"
+          src={this.state.mainImageUrl}
           data-element="big-preview"
         ></img>
         <div className="phoneViewer__info">
@@ -70,21 +66,21 @@ class Viewer extends React.Component {
             data-element="phone-element"
             data-phone-id={id}
             className="buttons">
-            <a
+            <button
               href="#"
               className="btn"
               data-element="back-button"
               onClick={onBackClicked}>
               Back
-					      </a>
-            <a
+					      </button>
+            <button
               className="btn"
               data-element="add-to-cart"
               onClick={() => {
                 onAddClicked(name)
               }}>
               Add to basket
-			              </a>
+			              </button>
           </div>
           <h1>{name}</h1>
           <p>{description}</p>

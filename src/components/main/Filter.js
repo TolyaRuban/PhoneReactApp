@@ -3,12 +3,8 @@ import React from 'react';
 class Filter extends React.Component {
   render() {
     const { queryChange, orderChange, phoneSelected } = this.props;
-    let disabled;
-      if (phoneSelected) {
-        disabled = "disabled";
-      } else {
-        disabled = "";
-      };
+    const disabled = phoneSelected ? "disabled" : "";
+
     return (
       <div className="filter">
         <p>

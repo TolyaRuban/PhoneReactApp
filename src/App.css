@@ -1,33 +1,276 @@
-.App {
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #E7EFFD;
+  color: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+header {
+  background-color: #EBEDEF;
+  height: 60px;
+  text-align: center;
+  border-bottom: 1px solid rgb(12, 49, 8);
+  box-shadow: 0 4px 10px rgba(12, 49, 8, 0.562);
+  margin: 0 0 20px;
+}
+
+footer {
+  background-color: #EBEDEF;
+  height: 60px;
+  text-align: center;
+  border-top: 1px solid gray;
+  margin: 20px 0 0;
+}
+
+header>h1,
+footer>h1 {
+  margin: 0;
+  line-height: 60px;
+  color: rgb(12, 49, 8);
+}
+
+
+.phone-images {
+  background-color: white;
+  width: 450px;
+  height: 450px;
+  overflow: hidden;
+  position: relative;
+  float: left;
+}
+.wrapper {
+  display: flex;
+  flex-basis: 25%;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
+.catalog {
+  position: relative;
+  flex-basis: 70%;
+  margin: 0 auto 20px;
+  padding-inline-start: 0;
+  min-height: 1px;
+  list-style: none;
+}
+
+
+.phone {
+  display: block;
+  padding: 5px;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid rgb(12, 49, 8);
+  border-radius: 4px;
+}
+
+.phone-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phone-wrapper a {
+  font-size: 16px;
+}
+
+.phone__item:nth-child(1) {
+  width: 105px;
+}
+
+.phone__item:nth-child(2) {
+  flex-grow: 1;
+}
+
+.thumb {
+  /* float: left; */
+  max-width: 100px;
+  margin-right: 5px;
+}
+
+.thumb>img {
+  /* display: block; */
+  object-fit: cover;
+  margin-right: 5px;
+  width: 100px;
+  height: auto;
+}
+
+.phones__btn-buy-wrapper {
+  align-items: center;
+  float: right;
+  height: 100%;
+  display: flex;
+}
+
+.catalog li {
+  clear: both;
+  height: 100px;
+  /* padding-top: 15px; */
+}
+
+a {
+  cursor: pointer;
+  font-weight: bold;
+  color: rgb(23, 141, 10);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  margin: 5px 0 10px;
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.btn {
+  color: #fff;
+  background-color: rgb(23, 141, 10);
+  /* border-color: #E7EFFD; */
+  display: inline-block;
+  padding: 6px 12px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: none;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: rgb(33, 228, 11);
+}
+
+.cart__btn {
+  height: 25px;
+  width: 25px;
+  padding: 0;
+}
+
+.cart__item {
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid rgb(12, 49, 8);
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+main {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 0 5px;
+}
+
+.phoneViewer,
+.cart,
+.filter {
+  margin: 0 auto 20px;
+  background-color: white;
+  padding: 5px 5px;
+  border: 1px solid rgb(12, 49, 8);
+  border-radius: 4px;
+}
+.cart {
+  flex-basis: 100%;  
+}
+.cart h2 {
   text-align: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.cart__ul{
+  list-style: none;
+  padding-inline-start: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.phoneViewer {
+  flex-basis: 70%;
+  min-height: 400px;
+  padding: 20px 5px;
 }
 
-.App-link {
-  color: #61dafb;
+.phoneViewer__info {
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.filter {
+  display: block;
+  flex-basis: 100%;
+}
+
+img.phoneDetail {
+  float: left;
+  background-color: white;
+  padding: 5px;
+  height: 400px;
+  width: 400px;
+}
+
+img.phone:first-child {
+  display: block;
+}
+
+ul.phone-thumbs {
+  clear: both;
+  margin: 0;
+  list-style: none;
+}
+
+ul.phone-thumbs li {
+  border: 1px solid black;
+  display: inline-block;
+  margin: 1em;
+  background-color: white;
+}
+
+ul.phone-thumbs img {
+  height: 100px;
+  width: 100px;
+  padding: 1em;
+}
+
+ul.phone-thumbs img:hover {
+  cursor: pointer;
+}
+
+ul.specs {
+  clear: both;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.specs>li {
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+}
+
+ul.specs>li>span {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+ul.specs dt {
+  font-weight: bold;
 }
